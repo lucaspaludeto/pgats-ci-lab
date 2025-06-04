@@ -1,7 +1,7 @@
 # CI de Nível 02 - Disparo agendado
 
 # nome do nosso 'pipeline'
-name: 'Execução Agendada'
+name: 'Execução Push'
 
 # regras de disparo (gatilhos/triggers)
 # gatilho de exec agendada = schedule
