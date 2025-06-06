@@ -1,19 +1,27 @@
-name: Enviar e-mail com Gmail
-
-on:
-  workflow_dispatch:
-    inputs:
-      destinatario:
-        description: 'E-mail do destinatário'
-        required: true
-        default: 'paludetolucas@gmail.com'
-
 jobs:
-  enviar_email:
+  e2e-tests:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Enviar e-mail
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Instalando Yarn
+        run: npm install -g yarn 
+      
+      - name: Instalando dependências
+        run: yarn
+
+      - name: Instalando Playwright
+        run: yarn playwright install
+
+      - name: Executando Testes e2e
+        run: yarn run e2e
+
+      - name: Enviar e-mail de sucesso
+        if: success()   # executa só se os passos anteriores tiveram sucesso
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -21,9 +29,9 @@ jobs:
           secure: false
           username: ${{ secrets.GMAIL_USERNAME }}
           password: ${{ secrets.GMAIL_APP_PASSWORD }}
-          subject: "🚀 Notificação do GitHub Actions"
-          to: ${{ github.event.inputs.destinatario }}
+          subject: "✅ Testes E2E passaram com sucesso!"
+          to: seu-email@exemplo.com
           from: GitHub Actions <${{ secrets.GMAIL_USERNAME }}>
           html_body: |
-            <h2>✅ Build finalizado com sucesso!</h2>
+            <h2>Os testes automatizados foram concluídos com sucesso!</h2>
             <p>Este e-mail foi enviado automaticamente pelo GitHub Actions.</p>
