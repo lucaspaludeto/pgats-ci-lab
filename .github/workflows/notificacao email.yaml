@@ -1,0 +1,25 @@
+name: Enviar e-mail para Hotmail
+
+on:
+  workflow_dispatch:
+
+jobs:
+  send_email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enviar email para lucas.paludeto@hotmail.com
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.office365.com
+          server_port: 587
+          secure: true
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "Notificação do GitHub Actions"
+          to: lucas.paludeto@hotmail.com
+          from: "GitHub Actions <${{ secrets.EMAIL_USERNAME }}>"
+          content_type: text/html
+          body: |
+            <h2>Olá, Lucas!</h2>
+            <p>Esse é um teste de envio de e-mail pelo <strong>GitHub Actions</strong>.</p>
+            <p>Status: <span style="color:green;">Sucesso ✅</span></p>
