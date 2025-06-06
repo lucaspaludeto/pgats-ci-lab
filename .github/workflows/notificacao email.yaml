@@ -41,7 +41,7 @@ jobs:
           username: ${{ secrets.GMAIL_USERNAME }}
           password: ${{ secrets.GMAIL_APP_PASSWORD }}
           subject: "✅ Testes E2E passaram com sucesso!"
-          to: seu-email@exemplo.com
+          to: paludetolucas@gmail.com
           from: GitHub Actions <${{ secrets.GMAIL_USERNAME }}>
           html_body: |
             <h2>Os testes automatizados foram concluídos com sucesso!</h2>
