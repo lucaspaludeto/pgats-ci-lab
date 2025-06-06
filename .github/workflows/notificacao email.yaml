@@ -1,22 +1,29 @@
-name: Enviar e-mail para Hotmail
+name: Enviar e-mail com Gmail
 
 on:
   workflow_dispatch:
+    inputs:
+      destinatario:
+        description: 'E-mail do destinatário'
+        required: true
+        default: 'paludetolucas@gmail.com'
 
 jobs:
-  send_email:
+  enviar_email:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Enviar email para lucas.paludeto@hotmail.com
+      - name: Enviar e-mail
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: smtp.office365.com
+          server_address: smtp.gmail.com
           server_port: 587
           secure: false
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "Notificação do GitHub Actions"
-          to: lucas.paludeto@hotmail.com
-          from: "GitHub Actions <${{ secrets.EMAIL_USERNAME }}>"
-          body: 'The build has finished.'
-          html_body: '<b>The build has finished.</b>'
+          username: ${{ secrets.GMAIL_USERNAME }}
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          subject: "🚀 Notificação do GitHub Actions"
+          to: ${{ github.event.inputs.destinatario }}
+          from: GitHub Actions <${{ secrets.GMAIL_USERNAME }}>
+          html_body: |
+            <h2>✅ Build finalizado com sucesso!</h2>
+            <p>Este e-mail foi enviado automaticamente pelo GitHub Actions.</p>
