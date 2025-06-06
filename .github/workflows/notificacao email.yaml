@@ -1,56 +1,43 @@
-# CI de Nível 02 - Disparo agendado
-
-# nome do nosso 'pipeline'
-name: 'Execução Agendada'
-
-# regras de disparo (gatilhos/triggers)
-# gatilho de exec agendada = schedule
+name: CI - Testes e Notificação
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
+    branches: [main]
 
-# trabalhos/tarefas dentro do pipeline = jobs
 jobs:
   e2e-tests:
-
-    #maquina que o job vai executar
     runs-on: ubuntu-latest
 
-    # passos do script de build
     steps:
-      # clone do projeto
-      - uses: actions/checkout@v4
+      - name: Checkout do código
+        uses: actions/checkout@v4
 
-      # instalacao do node
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 22.x
 
-      #instalacao do Yarn
       - name: Instalando Yarn
         run: npm install -g yarn 
-      
-      # instalacao das dependências
+
       - name: Instalando dependências
         run: yarn
 
-      # instalacao do Playwright
       - name: Instalando Playwright
         run: yarn playwright install
 
-      # executar os testes e2e
-      - name: Executando Testes e2e
+      - name: Executando testes e2e
         run: yarn run e2e
 
-      - name: Enviar e-mail de sucesso
-        if: success()   # executa só se os passos anteriores tiveram sucesso
+      - name: Enviar e-mail se testes passarem
+        if: success()
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
-          server_port: 587
-          secure: false
+          server_port: 465
+          secure: true
           username: ${{ secrets.GMAIL_USERNAME }}
           password: ${{ secrets.GMAIL_APP_PASSWORD }}
           subject: "✅ Testes E2E passaram com sucesso!"
