@@ -18,8 +18,5 @@ jobs:
           subject: "Notificação do GitHub Actions"
           to: lucas.paludeto@hotmail.com
           from: "GitHub Actions <${{ secrets.EMAIL_USERNAME }}>"
-          content_type: text/html
-          body: |
-            <h2>Olá, Lucas!</h2>
-            <p>Esse é um teste de envio de e-mail pelo <strong>GitHub Actions</strong>.</p>
-            <p>Status: <span style="color:green;">Sucesso ✅</span></p>
+          body: 'The build has finished.'
+          html_body: '<b>The build has finished.</b>'
