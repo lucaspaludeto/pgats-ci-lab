@@ -75,4 +75,4 @@ jobs:
 
     steps:
     - name: Simulação do deploy
-      run: exho "simulando o deploy com sucesso"
+      run: echo "simulando o deploy com sucesso"
