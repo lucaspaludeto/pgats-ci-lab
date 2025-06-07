@@ -20,7 +20,7 @@ jobs:
           node-version: 22.x
 
       - name: Instalando Yarn
-        run: npm install -g yarn 
+        run: npm install -g yarn
 
       - name: Instalando dependências
         run: yarn
@@ -40,7 +40,7 @@ jobs:
           secure: true
           username: ${{ secrets.GMAIL_USERNAME }}
           password: ${{ secrets.GMAIL_APP_PASSWORD }}
-          subject: "✅ Testes E2E passaram com sucesso!"
+          subject: '✅ Testes E2E passaram com sucesso!'
           to: paludetolucas@gmail.com
           from: GitHub Actions <${{ secrets.GMAIL_USERNAME }}>
           html_body: |

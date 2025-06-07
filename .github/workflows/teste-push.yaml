@@ -11,11 +11,10 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-    
+
 # trabalhos/tarefas dentro do pipeline = jobs
 jobs:
   e2e-tests:
-
     #maquina que o job vai executar
     runs-on: ubuntu-latest
 
@@ -31,8 +30,8 @@ jobs:
 
       #instalacao do Yarn
       - name: Instalando Yarn
-        run: npm install -g yarn 
-      
+        run: npm install -g yarn
+
       # instalacao das dependências
       - name: Instalando dependências
         run: yarn
